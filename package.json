@@ -4,10 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev:5.38.1:sync": "bash run.sh 5.38.1 sync",
-    "dev:5.38.1:async": "bash run.sh 5.38.1 async",
-    "dev:5.38.2:sync": "bash run.sh 5.38.2 sync",
-    "dev:5.38.2:async": "bash run.sh 5.38.2 async"
+    "dev:1:sync:flush": "bash run.sh 5.38.1 sync flush",
+    "dev:1:sync:none": "bash run.sh 5.38.1 sync none",
+    "dev:1:async:flush": "bash run.sh 5.38.1 async flush",
+    "dev:1:async:none": "bash run.sh 5.38.1 async none",
+    "dev:2:sync:flush": "bash run.sh 5.38.2 sync flush",
+    "dev:2:sync:none": "bash run.sh 5.38.2 sync none",
+    "dev:2:async:flush": "bash run.sh 5.38.2 async flush",
+    "dev:2:async:none": "bash run.sh 5.38.2 async none"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^6.1.1",

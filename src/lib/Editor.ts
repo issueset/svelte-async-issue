@@ -1,6 +1,13 @@
 import CodeBlock from "./CodeBlock.svelte";
 import * as svelte from "svelte";
 
+const flushMode = import.meta.env.VITE_PUBLIC_SVELTE_FLUSH_MODE;
+if (flushMode !== "flush" && flushMode !== "none") {
+  throw new Error(
+    `Invalid flush mode: ${flushMode}. Must be either 'flush' or 'none'.`
+  );
+}
+
 export class Editor {
   private dom: HTMLElement | null = null;
 
@@ -28,7 +35,7 @@ export class Editor {
   }
 
   private updateContent(dom: HTMLElement) {
-    dom.innerHTML = `<div class="editor card" data-card-label="[Vanilla] Editor.ts">
+    dom.innerHTML = `<div class="editor-content card" data-card-label="[Vanilla] <div class='editor-content'>">
     
     <p class="card" data-card-label="[Vanilla] <p>" contenteditable="true">Paragraph 1</p>
     <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-1"></div>
@@ -54,7 +61,11 @@ export class Editor {
     }
 
     svelte.mount(CodeBlock, { target: host, props: { text } });
-    svelte.flushSync();
+
+    if (flushMode === "flush") {
+      console.log("[Editor.ts] svelte.flushSync()");
+      svelte.flushSync();
+    }
   }
 
   private updateSelection(dom: HTMLElement) {
