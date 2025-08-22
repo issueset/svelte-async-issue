@@ -3,13 +3,13 @@
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 let async = false;
-if (process.env.SVELTE_EXPERIMENTAL_ASYNC === "async") {
+if (process.env.VITE_PUBLIC_SVELTE_EXPERIMENTAL_ASYNC === "async") {
   async = true;
-} else if (process.env.SVELTE_EXPERIMENTAL_ASYNC === "sync") {
+} else if (process.env.VITE_PUBLIC_SVELTE_EXPERIMENTAL_ASYNC === "sync") {
   async = false;
 } else {
   throw new Error(
-    "process.env.SVELTE_EXPERIMENTAL_ASYNC must be either 'async' or 'sync'"
+    "process.env.VITE_PUBLIC_SVELTE_EXPERIMENTAL_ASYNC must be either 'async' or 'sync'"
   );
 }
 
