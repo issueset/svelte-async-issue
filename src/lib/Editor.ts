@@ -8,12 +8,12 @@ export class Editor {
     console.log("[Editor.ts] mount called");
 
     this.dom = node;
-    this.dom.innerHTML = `<div class="editor">
+    this.dom.innerHTML = `<div class="editor card" data-card-label="[Vanilla] Editor.ts">
     
     <p class="card" contenteditable="true">Paragraph 1</p>
-    <div class="svelte-component-host" id="svelte-component-host-1"></div>
+    <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-1"></div>
     <p class="card" contenteditable="true">Paragraph 2</p>
-    <div class="svelte-component-host" id="svelte-component-host-2"></div>
+    <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-2"></div>
     </div>`;
 
     this.addSvelteComponent(this.dom);

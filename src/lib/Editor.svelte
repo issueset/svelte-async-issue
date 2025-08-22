@@ -17,5 +17,5 @@
 </script>
 
 <div class="card" data-card-label="[Svelte] Editor.svelte">
-  <div class="card" data-card-label="[Vanilla] Editor.ts" use:action></div>
+  <div class="card" data-card-label="[Svelte -> Vanilla]" use:action></div>
 </div>
