@@ -36,11 +36,15 @@ export class Editor {
     <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-2"></div>
     </div>`;
 
-    this.addSvelteComponent(dom, "#svelte-component-host-1");
-    this.addSvelteComponent(dom, "#svelte-component-host-2");
+    this.addSvelteComponent(
+      dom,
+      "#svelte-component-host-1",
+      "Expect THIS to be selected"
+    );
+    this.addSvelteComponent(dom, "#svelte-component-host-2", "Hello world!");
   }
 
-  private addSvelteComponent(dom: HTMLElement, selector: string) {
+  private addSvelteComponent(dom: HTMLElement, selector: string, text: string) {
     console.log("[Editor.ts] addSvelteComponent called. Selector: ", selector);
 
     const host = dom.querySelector(selector);
@@ -49,7 +53,7 @@ export class Editor {
       throw new Error("Svelte component host not found");
     }
 
-    svelte.mount(CodeBlock, { target: host });
+    svelte.mount(CodeBlock, { target: host, props: { text } });
     svelte.flushSync();
 
     console.log("[Editor.ts] addSvelteComponent done");
@@ -58,21 +62,24 @@ export class Editor {
   private updateSelection(dom: HTMLElement) {
     const code = dom.querySelector("code");
     if (!code) {
-      console.warn("[Editor.ts] Unable to find <code> element thus unable to update selection");
-      return 
+      console.warn(
+        "[Editor.ts] Unable to find <code> element thus unable to update selection"
+      );
+      return;
     }
 
-    const text = code.childNodes[0]
+    const text = code.childNodes[0];
 
     if (text.nodeType !== text.TEXT_NODE) {
       console.warn("[Editor.ts] Unable to find text node in <code> element");
       return;
     }
 
-    
     const range = document.createRange();
-    range.setStart(text, 3);
-    range.setEnd(text, 6);
+
+    // Select the text "THIS" in the <code> element
+    range.setStart(text, 7);
+    range.setEnd(text, 11);
 
     const selection = window.getSelection();
     if (!selection) {
@@ -85,6 +92,5 @@ export class Editor {
     }
 
     selection.addRange(range);
-
   }
 }
