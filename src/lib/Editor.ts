@@ -30,9 +30,9 @@ export class Editor {
   private updateContent(dom: HTMLElement) {
     dom.innerHTML = `<div class="editor card" data-card-label="[Vanilla] Editor.ts">
     
-    <p class="card" contenteditable="true">Paragraph 1</p>
+    <p class="card" data-card-label="[Vanilla] <p>" contenteditable="true">Paragraph 1</p>
     <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-1"></div>
-    <p class="card" contenteditable="true">Paragraph 2</p>
+    <p class="card" data-card-label="[Vanilla] <p>" contenteditable="true">Paragraph 2</p>
     <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-2"></div>
     </div>`;
 
@@ -55,8 +55,6 @@ export class Editor {
 
     svelte.mount(CodeBlock, { target: host, props: { text } });
     svelte.flushSync();
-
-    console.log("[Editor.ts] addSvelteComponent done");
   }
 
   private updateSelection(dom: HTMLElement) {
