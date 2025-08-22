@@ -4,14 +4,14 @@
 
   const action: Action = (node) => {
     node.innerHTML = `
-    <code class="card" data-card-label="[Vanilla] code" contenteditable="true">
+    <code class="card" data-card-label="[Vanilla] <code>" contenteditable="true">
       print("Hello, world!");
     </code>
     `;
   };
 </script>
 
-<div class="card" data-card-label="[Svelte] CodeBlock.svelte">
+<div class="card" data-card-label="[Svelte] <CodeBlock>">
   <LanguageSelect />
   <pre class="card" data-card-label="[Svelte -> Vanilla] <pre>" use:action></pre>
 </div>
