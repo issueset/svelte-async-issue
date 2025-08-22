@@ -8,15 +8,9 @@ export class Editor {
     console.log("[Editor.ts] mount called");
 
     this.dom = node;
-    this.dom.innerHTML = `<div class="editor card" data-card-label="[Vanilla] Editor.ts">
-    
-    <p class="card" contenteditable="true">Paragraph 1</p>
-    <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-1"></div>
-    <p class="card" contenteditable="true">Paragraph 2</p>
-    <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-2"></div>
-    </div>`;
 
-    this.addSvelteComponent(this.dom);
+    this.updateContent(this.dom);
+    this.updateSelection(this.dom);
 
     console.log("[Editor.ts] mount done");
   }
@@ -33,21 +27,64 @@ export class Editor {
     console.log("[Editor.ts] unmount done");
   }
 
-  private addSvelteComponent(dom: HTMLElement) {
-    console.log("[Editor.ts] addSvelteComponent called");
+  private updateContent(dom: HTMLElement) {
+    dom.innerHTML = `<div class="editor card" data-card-label="[Vanilla] Editor.ts">
+    
+    <p class="card" contenteditable="true">Paragraph 1</p>
+    <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-1"></div>
+    <p class="card" contenteditable="true">Paragraph 2</p>
+    <div class="svelte-component-host card" data-card-label="[Vanilla -> Svelte]" id="svelte-component-host-2"></div>
+    </div>`;
 
-    const host1 = dom.querySelector("#svelte-component-host-1");
-    const host2 = dom.querySelector("#svelte-component-host-2");
+    this.addSvelteComponent(dom, "#svelte-component-host-1");
+    this.addSvelteComponent(dom, "#svelte-component-host-2");
+  }
 
-    if (!host1 || !host2) {
+  private addSvelteComponent(dom: HTMLElement, selector: string) {
+    console.log("[Editor.ts] addSvelteComponent called. Selector: ", selector);
+
+    const host = dom.querySelector(selector);
+
+    if (!host) {
       throw new Error("Svelte component host not found");
     }
 
-    svelte.mount(CodeBlock, { target: host1 });
-    svelte.flushSync();
-    svelte.mount(CodeBlock, { target: host2 });
+    svelte.mount(CodeBlock, { target: host });
     svelte.flushSync();
 
     console.log("[Editor.ts] addSvelteComponent done");
+  }
+
+  private updateSelection(dom: HTMLElement) {
+    const code = dom.querySelector("code");
+    if (!code) {
+      console.warn("[Editor.ts] Unable to find <code> element thus unable to update selection");
+      return 
+    }
+
+    const text = code.childNodes[0]
+
+    if (text.nodeType !== text.TEXT_NODE) {
+      console.warn("[Editor.ts] Unable to find text node in <code> element");
+      return;
+    }
+
+    
+    const range = document.createRange();
+    range.setStart(text, 3);
+    range.setEnd(text, 6);
+
+    const selection = window.getSelection();
+    if (!selection) {
+      console.warn("[Editor.ts] Unable to get window.getSelection()");
+      return;
+    }
+
+    if (selection.rangeCount > 0) {
+      selection.removeAllRanges();
+    }
+
+    selection.addRange(range);
+
   }
 }
