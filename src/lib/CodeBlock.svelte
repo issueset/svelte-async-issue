@@ -3,11 +3,13 @@
   import LanguageSelect from "./LanguageSelect.svelte";
 
   const action: Action = (node) => {
+    console.log("[CodeBlock.svelte] action called");
     node.innerHTML = `
     <code class="card" data-card-label="[Vanilla] <code>" contenteditable="true">
       print("Hello, world!");
     </code>
     `;
+    console.log("[CodeBlock.svelte] action done");
   };
 </script>
 
