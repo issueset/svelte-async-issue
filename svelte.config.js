@@ -1,6 +1,16 @@
 // @ts-check
 
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+
+const ENABLE_EXPERIMENTAL_ASYNC = process.env.ENABLE_EXPERIMENTAL_ASYNC;
+let async = false;
+if (ENABLE_EXPERIMENTAL_ASYNC === "async") {
+  async = true;
+} else if (ENABLE_EXPERIMENTAL_ASYNC === "sync") {
+  async = false;
+} else {
+  throw new Error("ENABLE_EXPERIMENTAL_ASYNC must be either 'async' or 'sync'");
+}
 
 /** @type {import("@sveltejs/vite-plugin-svelte").SvelteConfig} */
 export default {
@@ -10,7 +20,7 @@ export default {
 
   compilerOptions: {
     experimental: {
-      // async: true,
-    }
+      async: async,
+    },
   },
-}
+};
