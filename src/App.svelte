@@ -2,12 +2,11 @@
   import svelteLogo from "./assets/svelte.svg";
   import viteLogo from "/vite.svg";
   import Counter from "./lib/Counter.svelte";
+  import Editor from "./lib/Editor.svelte";
 </script>
 
 <main>
-  <div class="card" data-card-label="Svelte App">
-    <Counter />
-  </div>
+  <Editor />
 </main>
 
 <style>

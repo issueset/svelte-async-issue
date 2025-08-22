@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -96,4 +100,6 @@ button:focus-visible {
   outline-style: solid;
   outline-color: red;
   padding: 0.25em;
+  font-size: 0.75em;
+  font-weight: bold;
 }
