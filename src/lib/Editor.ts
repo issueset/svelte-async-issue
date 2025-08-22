@@ -44,7 +44,9 @@ export class Editor {
     }
 
     svelte.mount(CodeBlock, { target: host1 });
+    svelte.flushSync();
     svelte.mount(CodeBlock, { target: host2 });
+    svelte.flushSync();
 
     console.log("[Editor.ts] addSvelteComponent done");
   }
